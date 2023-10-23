@@ -1,70 +1,82 @@
-# Getting Started with Create React App
+# Order Charizard
+### About
+This application allows users to draw three different Charizard Pokemon cards from the Pokemon TCG API. The first step consists of a button that initiates the
+draw. After successfully drawing three random Charizard cards, the user can choose one of them on the next screen. The last step contains the summary and shipping details mock form.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Instalation
+`git clone 'https://github.com/MarekSzczepanski/order-charizard.git'`
 
-## Available Scripts
+`cd order-charizard`
 
-In the project directory, you can run:
+`npm install`
 
-### `npm start`
+`npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Stack Used
+React + TypeScript, Redux, React Query, Axios, MSW, Formik, ESLint (Airbnb preset) + Prettier, MUI, Jest + RTL, Husky
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+#### React:
+I used React because it's popular and it's my favourite tool to make SPAs.
 
-### `npm test`
+##### Some of single Page Application (SPA) advantages useful for this app:
+* High speed
+* No page refresh during step change
+* Wonderful state management
+* Overall development comfort
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### TypeScript:
+Overall, TypeScript is a more powerful and versatile language than JavaScript. In serious projects it's necessary for developing high-quality code.
+#### Redux:
+Redux is an open-source JavaScript library for managing the state of a web application in a predictable and centralized manner. 
+#### React Query:
+React Query is a library that provides a set of tools and utilities for managing and caching asynchronous data in React applications. It provides efficient data fetching, built-in caching, refetching and many more!
+#### Axios:
+Axios is a popular JavaScript library for making HTTP requests. It is recommended to use together with React Query.
+#### Mock Service Worker (MSW):
+MSW is a powerful tool for mocking API requests and responses for unit tests purposes.
+#### Formik:
+Formik is a popular library in the React ecosystem that helps streamline the process of building and managing forms.
+#### ESLint:
+ESLint helps to write consistent and error-free code. It can be used to enforce coding style rules, detect potential errors, and improve the readability of the code.
+##### ESLint's Airbnb Preset:
+The Airbnb Preset is a set of rules that follow the Airbnb code style guide. It is a good choice for project teams that want to follow a serious and well known style guide.
+##### Prettier:
+Prettier is a code formatter that helps in establishing consistent code. It's very handy together with ESLint.
+#### Material UI (MUI):
+Material UI is a popular React UI library that provides a wide range of pre-built components. It helps to build pretty, responsive, and accessible user interfaces **faster**.
+#### Jest + RTL:
+Jest and React Testing Library stack is designed for making unit testing comfortable and reliable in React environment
+#### Husky:
+Husky makes possible to run commands or scripts before committing or pushing the code to a git repository. It is helpful to not forget about some pre-commit and pre-push tasks
 
-### `npm run build`
+## Conventions
+#### Semantic commits:
+Benefits of using semantic commits:
+* They make it easier to understand the history of project.
+* They help to automate tasks such as generating changelogs and determining semantic version bumps.
+* They help to communicate changes to the team members and other stakeholders.
+* They help to write more meaningful commit messages.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## License
+[MIT](https://github.com/MarekSzczepanski/order-charizard/blob/main/LICENSE "Go to license")
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Thoughts
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Why Redux?
+I have chosen to use Redux in this project, because there are many state parts that are being used in multiple components. So instead of passing all that state up to the highest component and then down to lower components I decided to use Single Source of Truth (SSoT) pattern that Redux provides. 
 
-### `npm run eject`
+##### List of state elements included in Redux store:
+* Step change - triggered by clicking blue buttons on all three steps
+* Saving data of drawn cards - received on step 1, used on steps 2 and 3
+* Saving data of received price - received on step 2 for chosen card and reused on step 3 summary
+* Chosen card - id of a card chosen by the user on step 2 that is useful for step 3 summary
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+##### List of local state elements:
+* Saving data of received card sets - used only in step 2
+* Modal on/off - used only in step 2
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Why unit tests, linter, formatter, Git hooks?
+If that would be a business app that would not require any further developing I would probably **not** choose to use all of the software mentioned above, because it's a tiny app. I could make this app quicker without using all of theese and test the app manually. However, this is not a business app so I could decide what software to use on my own. So I have chosen to use it all just to show that I know how it all works.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Why no SCSS?
+I have used css in js approach. The only css file (index) has just few selectors so I decided that SCSS is no necessary.
