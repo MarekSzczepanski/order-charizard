@@ -1,8 +1,10 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import step from './reducers/step';
+import cards from './reducers/cards';
 
 const rootReducer = combineReducers({
   step,
+  cards,
 });
 
 const store = configureStore({
