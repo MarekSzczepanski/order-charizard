@@ -1,15 +1,45 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import { Formik } from 'formik';
 import { Typography, Box } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import changeStep from '../../actions/stepAction';
+import saveDataOfDrawnCards from '../../actions/cardsAction';
 import StyledButton from '../../styled/button';
 import { colors, api } from '../../utils/globalVariables';
 
+const cardsCount = 3;
+
 const requestCards = () => axios.get(`${api}/cards?q=name:charizard`);
+
+const drawThreeRandomCards = (min: 0, max: number) => {
+  const numbers = [];
+  for (let i = 0; i < cardsCount; i += 1) {
+    numbers.push(Math.floor(Math.random() * (max - min + 1) + min));
+  }
+  return numbers;
+};
+
+const getDrawnCardsData = (res: AxiosResponse) => {
+  const cardsData = [];
+  const { count, data } = res.data;
+  const drawnNumbers = drawThreeRandomCards(0, count);
+
+  for (let i = 0; i < cardsCount; i += 1) {
+    const card = data[drawnNumbers[i]];
+    cardsData[i] = {
+      name: card.name,
+      image: card.images,
+      price: card.cardmarket.prices.averageSellPrice,
+      url: card.cardmarket.url,
+      setName: card.set.name,
+      setLogo: card.set.images.logo,
+    };
+  }
+  return cardsData;
+};
 
 function Home() {
   const step = useSelector((state: RootState) => state.step);
@@ -21,9 +51,10 @@ function Home() {
   });
 
   useEffect(() => {
-    if (data && step.value < 1) dispatch(changeStep(step.value + 1));
-    // eslint-disable-next-line
-    console.log(data);
+    if (data && step.value < 1) {
+      dispatch(changeStep(step.value + 1));
+      dispatch(saveDataOfDrawnCards(getDrawnCardsData(data)));
+    }
   }, [data, dispatch, step.value]);
 
   const renderApiCallStatusText = () => {
