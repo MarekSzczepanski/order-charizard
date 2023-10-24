@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import { Formik } from 'formik';
-import { Typography, Box } from '@mui/material';
+import { Typography, Box, CircularProgress } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import changeStep from '../../actions/stepAction';
@@ -112,8 +112,22 @@ function Home() {
             </form>
           )}
         </Formik>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            marginTop: 'max(1rem, 1.5vw)',
+          }}
+        >
+          <Typography
+            color={colors.color1}
+            sx={{ marginRight: 'max(.5rem, 1vw)' }}
+          >
+            {renderApiCallStatusText()}
+          </Typography>
+          {isFetching && <CircularProgress size={15} />}
+        </Box>
       </Box>
-      <span>{renderApiCallStatusText()}</span>
     </section>
   );
 }
