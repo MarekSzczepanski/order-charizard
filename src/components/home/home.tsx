@@ -15,7 +15,7 @@ const cardsCount = 3;
 const requestCards = () => axios.get(`${api}/cards?q=name:charizard`);
 
 const drawThreeRandomCards = (min: 0, max: number) => {
-  const numbers = [];
+  const numbers: number[] = [];
   for (let i = 0; i < cardsCount; i += 1) {
     numbers.push(Math.floor(Math.random() * (max - min + 1) + min));
   }
@@ -31,7 +31,7 @@ const getDrawnCardsData = (res: AxiosResponse) => {
     const card = data[drawnNumbers[i]];
     cardsData[i] = {
       name: card.name,
-      image: card.images,
+      image: card.images.large,
       price: card.cardmarket.prices.averageSellPrice,
       url: card.cardmarket.url,
       setName: card.set.name,
