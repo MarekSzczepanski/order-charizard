@@ -11,6 +11,7 @@ const Img = styled('img')`
   width: 13vmax;
   height: auto;
   transform: rotate(-30deg);
+  z-index: -1;
 `;
 const Img2 = styled('img')`
   position: absolute;
@@ -19,6 +20,7 @@ const Img2 = styled('img')`
   width: 26vmax;
   height: auto;
   transform: rotate(30deg);
+  z-index: -1;
 `;
 const Footer = styled('footer')`
   display: flex;
