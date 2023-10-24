@@ -1,6 +1,9 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import step from './reducers/step';
 
-const rootReducer = combineReducers({});
+const rootReducer = combineReducers({
+  step,
+});
 
 const store = configureStore({
   reducer: rootReducer,
