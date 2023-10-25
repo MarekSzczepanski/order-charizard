@@ -1,7 +1,10 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 import pokeball from '../../assets/pokeball.png';
 import Home from '../home/home';
+import Cards from '../cards/cards';
 import { colors } from '../../utils/globalVariables';
 
 const Img = styled('img')`
@@ -40,9 +43,16 @@ const Footer = styled('footer')`
 `;
 
 function App() {
+  const step = useSelector((state: RootState) => state.step);
+
+  const renderProperSection = () => {
+    const sections = [<Home />, <Cards />];
+    return sections[step.value];
+  };
+
   return (
     <div className="App">
-      <Home />
+      {renderProperSection()}
       <Img src={pokeball} alt="pokeball" />
       <Img2 src={pokeball} alt="pokeball" />
       <Footer>
