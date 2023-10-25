@@ -17,6 +17,9 @@ body {
   background-color: #1a1b3f;
   overflow-x: hidden;
 }
+.cancel-icon:hover {
+  color: #c64415;
+}
 
 @media (max-width: 1023px) {
   body {

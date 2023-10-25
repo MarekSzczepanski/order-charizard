@@ -95,3 +95,36 @@ describe('cards', () => {
     }
   });
 });
+
+describe('modal', () => {
+  beforeEach(() => {
+    render(<Cards />);
+  });
+
+  test('opens modal', async () => {
+    const detailsButton = getAllDetailsButtons()[0];
+    await user.click(detailsButton);
+    const setsHeading = screen.getByRole('heading', {
+      name: 'Included in:',
+    });
+    checkDocumentBeing(setsHeading);
+  });
+
+  test('closes modal', async () => {
+    const detailsButton = getAllDetailsButtons()[0];
+    await user.click(detailsButton);
+    const cancelIcon = screen.getByTestId('cancel-icon');
+    await user.click(cancelIcon);
+    const queryCancelIcon = screen.queryByTestId('cancel-icon');
+    expect(queryCancelIcon).not.toBeInTheDocument();
+  });
+
+  test('renders modal headings', async () => {
+    const detailsButton = getAllDetailsButtons()[0];
+    await user.click(detailsButton);
+    const h2 = screen.getAllByRole('heading', { level: 2 });
+    checkLength(h2, 3);
+    const h3 = screen.getAllByRole('heading', { level: 3 });
+    checkLength(h3, 5);
+  });
+});
