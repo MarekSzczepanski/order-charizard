@@ -4,7 +4,9 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import { styled } from '@mui/material/styles';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import setChosenCard from '../../actions/chosenCardAction';
+import changeStep from '../../actions/stepAction';
 import { RootState } from '../../store';
 import StyledButton from '../../styled/button';
 import H2 from '../typography/h2';
@@ -68,8 +70,18 @@ const Section = styled('section')`
   }
 `;
 
+const chooseCard = (id: number, dispatch: Function) => {
+  dispatch(setChosenCard(id));
+};
+
+const confirmChoice = (dispatch: Function) => {
+  dispatch(changeStep(2));
+};
+
 function Cards() {
   const cards = useSelector((state: RootState) => state.cards.value);
+  const chosenCard = useSelector((state: RootState) => state.chosenCard.value);
+  const dispatch = useDispatch();
 
   const renderLayoutCards = () => {
     const layoutCards = [];
@@ -77,7 +89,12 @@ function Cards() {
     for (let i = 0; i < 3; i += 1) {
       const imgUrl = cards[i].image;
       layoutCards.push(
-        <CardWrap key={i} data-testid={`card${i}`}>
+        <CardWrap
+          onClick={() => chooseCard(i, dispatch)}
+          className={chosenCard === i ? 'chosen' : ''}
+          key={i}
+          data-testid={`card${i}`}
+        >
           <Card
             sx={{
               display: 'flex',
@@ -122,7 +139,12 @@ function Cards() {
     <Section>
       <H2 text="choose your card" />
       <CardsContainer>{renderLayoutCards()}</CardsContainer>
-      <StyledButton type="button" variant="contained">
+      <StyledButton
+        onClick={() => confirmChoice(dispatch)}
+        disabled={chosenCard < 0}
+        type="button"
+        variant="contained"
+      >
         proceed to shipment
       </StyledButton>
     </Section>

@@ -42,6 +42,11 @@ describe('confirm button', () => {
     const btn = screen.getByRole('button', { name: 'proceed to shipment' });
     checkDocumentBeing(btn);
   });
+
+  test('disables confirm button', () => {
+    const btn = screen.getByRole('button', { name: 'proceed to shipment' });
+    expect(btn).toBeDisabled();
+  });
 });
 
 describe('details buttons', () => {
@@ -75,6 +80,17 @@ describe('cards', () => {
       fireEvent.mouseOver(cards[i]);
       expect(cards[i]).toHaveStyle(
         `box-shadow: ${colors.color5} 0px 5vmax 4vmax -3vmax`,
+      );
+    }
+  });
+
+  test('selecting cards', async () => {
+    const cards = getCards();
+    for (let i = 0; i < cards.length; i += 1) {
+      // eslint-disable-next-line no-await-in-loop
+      await user.click(cards[i]);
+      expect(cards[i]).toHaveStyle(
+        `box-shadow: ${colors.color6} 0px 5vmax 4vmax -3vmax`,
       );
     }
   });
