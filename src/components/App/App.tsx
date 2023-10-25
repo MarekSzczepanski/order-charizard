@@ -1,11 +1,16 @@
 import React from 'react';
+import axios from 'axios';
+import { useQueryClient, useMutation } from '@tanstack/react-query';
 import { styled } from '@mui/material/styles';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
+import changeStep from '../../actions/stepAction';
 import pokeball from '../../assets/pokeball.png';
 import Home from '../home/home';
 import Cards from '../cards/cards';
+import Shipping from '../shipping/shipping';
 import { colors } from '../../utils/globalVariables';
+import IFormValues from '../../interfaces/formValues';
 
 const Img = styled('img')`
   position: absolute;
@@ -44,9 +49,30 @@ const Footer = styled('footer')`
 
 function App() {
   const step = useSelector((state: RootState) => state.step);
+  const useSignupMutation = () =>
+    useMutation({
+      mutationFn: (formPayload: IFormValues) =>
+        axios.post('https://jsonplaceholder.typicode.com/users', formPayload),
+    });
+
+  const { mutate } = useSignupMutation();
+  const dispatch = useDispatch();
+  const queryClient = useQueryClient();
 
   const renderProperSection = () => {
-    const sections = [<Home />, <Cards />];
+    const onSubmit = (values: IFormValues) =>
+      mutate(values, {
+        onSuccess: () => {
+          queryClient.removeQueries();
+          dispatch(changeStep(0));
+        },
+        onError: () => {
+          // eslint-disable-next-line no-alert
+          alert('An error occured while submiting the form');
+        },
+      });
+
+    const sections = [<Home />, <Cards />, <Shipping onSubmit={onSubmit} />];
     return sections[step.value];
   };
 
