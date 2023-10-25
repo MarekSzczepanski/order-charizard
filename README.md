@@ -68,11 +68,9 @@ I have chosen to use Redux in this project, because there are many state parts t
 ##### List of state elements included in Redux store:
 * Step change - triggered by clicking blue buttons on all three steps
 * Saving data of drawn cards - received on step 1, used on steps 2 and 3
-* Saving data of received price - received on step 2 for chosen card and reused on step 3 summary
 * Chosen card - id of a card chosen by the user on step 2 that is useful for step 3 summary
 
 ##### List of local state elements:
-* Saving data of received card sets - used only in step 2
 * Modal on/off - used only in step 2
 
 ### Why unit tests, linter, formatter, Git hooks?
