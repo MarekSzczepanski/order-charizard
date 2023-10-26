@@ -80,12 +80,11 @@ const Modal = styled('article')`
   height: 75vh;
   padding-bottom: 2rem;
   transform: translate(-50%, -55%);
-  background-color: white;
+  background-color: ${colors.color1};
   border: solid 8px ${colors.color5};
   overflow-y: scroll;
 `;
 const ModalSection = styled('section')`
-  display: flex;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -153,6 +152,7 @@ function Cards() {
               alignItems: 'center',
               height: '100%',
               overflowY: 'auto',
+              backgroundColor: colors.color1,
             }}
           >
             <CardContent
