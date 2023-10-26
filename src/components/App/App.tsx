@@ -65,6 +65,8 @@ function App() {
         onSuccess: () => {
           queryClient.removeQueries();
           dispatch(changeStep(0));
+          // eslint-disable-next-line no-alert
+          alert('Form successfully submitted');
         },
         onError: () => {
           // eslint-disable-next-line no-alert
