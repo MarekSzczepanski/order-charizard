@@ -39,7 +39,7 @@ const Footer = styled('footer')`
   width: 100%;
   max-width: 100vw;
   padding: 20px 0;
-  background-color: gray;
+  background-color: ${colors.color4};
   z-index: 2;
   > a {
     max-width: 90vw;
