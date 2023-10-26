@@ -11,7 +11,6 @@ const Form = styled('form')`
   @media (max-width: 1023px) {
     padding-top: 3rem;
   }
-
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -28,9 +27,12 @@ const Inputs = styled('section')`
   justify-content: space-between;
   align-self: center;
   width: 50%;
-  padding-top: 1rem;
+  padding: 2rem;
+  border-radius: 1rem;
+  background-color: ${colors.color4};
   > h2 {
     width: 100%;
+    color: ${colors.color5};
   }
   > input {
     width: 100%;
