@@ -1,8 +1,12 @@
 import React from 'react';
 import { useFormik } from 'formik';
+import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 import StyledButton from '../../styled/button';
 import H2 from '../typography/h2';
+import H3 from '../typography/h3';
 import { colors } from '../../utils/globalVariables';
 import IFormValues from '../../interfaces/formValues';
 
@@ -68,8 +72,31 @@ const ErrorMessage = styled('div')`
   padding-top: 0.3rem;
   color: crimson;
 `;
+const Summary = styled('section')`
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  border-radius: 20px;
+  background-color: ${colors.color1};
+  @media (max-width: 1023px) {
+    width: min(90vw, 500px);
+    margin-top: 2rem;
+  }
+  @media (min-width: 1024px) {
+    width: 35%;
+  }
+`;
+const Img = styled('img')`
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: 2rem auto;
+`;
 
 function Shipping({ ...props }: { onSubmit: (values: IFormValues) => void }) {
+  const cards = useSelector((state: RootState) => state.cards);
+  const chosenCard = useSelector((state: RootState) => state.chosenCard);
+  const chosenCardData = cards.value[chosenCard.value];
   const formik = useFormik<{
     name: string;
     surname: string;
@@ -230,13 +257,25 @@ function Shipping({ ...props }: { onSubmit: (values: IFormValues) => void }) {
         <H2 text="shipping details" />
         {renderInputs()}
       </Inputs>
-      <StyledButton
-        type="submit"
-        variant="contained"
-        disabled={!formik.isValid}
-      >
-        submit
-      </StyledButton>
+      <Summary>
+        <H2 text="summary" isDark />
+        <Box sx={{ maxWidth: '70%', margin: '0 auto 1rem' }}>
+          <Img src={chosenCardData?.image} alt={chosenCardData?.name} />
+          <H3 text={chosenCardData?.name} />
+        </Box>
+        <Img src={chosenCardData?.setLogo} alt={chosenCardData?.setName} />
+        <H3
+          text={`This card is included in '${chosenCardData?.setName}' set`}
+          textAlign="center"
+        />
+        <StyledButton
+          type="submit"
+          variant="contained"
+          disabled={!formik.isValid}
+        >
+          submit
+        </StyledButton>
+      </Summary>
     </Form>
   );
 }

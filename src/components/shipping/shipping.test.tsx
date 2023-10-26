@@ -27,7 +27,7 @@ describe('heading', () => {
   test('renders h2', () => {
     render(<Shipping onSubmit={mockOnSubmit} />);
     const h2 = screen.getAllByRole('heading', { level: 2 });
-    checkLength(h2, 1);
+    checkLength(h2, 2);
   });
 });
 
